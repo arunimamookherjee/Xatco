@@ -1,0 +1,12 @@
+block content
+
+     script(type='text/javascript')
+         | var local_data = !{JSON.stringify(name)}
+         | var token="#{foo}"
+         | var token_id="#{bar}"
+         | var domain="#{dom}"
+
+
+     script(src = '/javascripts/transfer.js')
+
+    include welcome.html

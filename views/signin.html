@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Payment Here</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/sign.css">
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Amaranth|Audiowide|Fredoka+One|Lato|Lobster|Pacifico|Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+<body>
+<div class="trans">
+    <div class="name">
+        <img src="images/icon3.png" width="70px" height="70px">
+        <p>XATCO</p>
+    </div>
+    <div class="logg">a
+        <form id="login" method="post" action="/login">
+            <p>Login</p>
+            <div class="in">Enter email address and password to log on:</div>
+            <div class="form-group" >
+
+                <input type="email" class="form-control a" name="em" id="email" placeholder="Email Address">
+            </div>
+            <div class="form-group">
+
+                <input type="password" class="form-control a" name="pass" id="pass" placeholder="Password">
+            </div>
+
+
+            <button class="btn btn-success" id="target">LOGIN</button>
+
+        </form>
+    </div>
+    <div class="vr"></div>
+    <div class="sin">
+        <p>Sign Up and Pay</p>
+        <div class="out">Fill in the form below to get instant access:</div>
+        <form id="form" method="post" action="/subscribe">
+            <div class="form-group">
+                <!-- <label for="name" class="nme">Name:</label> -->
+                <input type="text" class="form-control a"  name="reg" id="name" placeholder="Full Name">
+            </div>
+
+            <div class="form-group">
+                <!-- <label for="email">Email:</label> -->
+                <input type="email" class="form-control a" name="em" id="em" placeholder="Email Address">
+            </div>
+
+            <input type="text"   style=" visibility:hidden; height: 0px;" name="payment_id" id="payment_id" >
+
+            <div class="form-group">
+                <!-- <label for="mob">Mobile No:</label> -->
+                <input type="text" class="form-control a"  name="mob" id="mob" placeholder="Mobile Number">
+            </div>
+            <input type="password" name="passw" id="passw" placeholder="  Password">
+            <input type="password" name="con" id="con" placeholder="  Confirm Password">
+
+            <input type="text"   style=" visibility:hidden; height: 0px;" name="datee" id="date" >
+
+            <button class="btn btn-success" id="rzp-button1">Pay</button>
+
+        </form></div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth();
+
+
+    var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep", "Oct","Nov","Dec"];
+
+    var yyyy = today.getFullYear();
+    if(dd<10){
+        dd='0'+dd;
+    }
+    if(mm<10){
+        mm='0'+mm;
+    }
+    //console.log(parseInt(mm));
+    //console.log(months[mm]);
+    today = dd+'-'+months[parseInt(mm)]+'-'+yyyy;
+
+    document.getElementById('date').value =today;
+   // console.log(new Date());
+   // console.log(today);
+
+
+
+
+
+
+    document.getElementById('rzp-button1').onclick = function(e) {
+
+        if ($("#passw").val() != $("#con").val())
+        {alert("Passwords do not match."); $('#passw').val("");$('#con').val("");}
+        else if($("#passw")==null || $("#con")==null)
+            alert("Enter Password Please");
+        else {
+            var options = {
+                "key": "rzp_test_0hqAIZ5HxM0i2C",
+                "amount": "200000", // 2000 paise = INR 20
+                "name": "Magnum Technologies",
+                "image": "images/magnum.png",
+                "description": "Purchase Description",
+                "handler": function (response) {
+
+                    //this where i add*///////
+                    $('#payment_id').val(response.razorpay_payment_id);
+
+                    document.getElementById("form").submit();
+                },
+                "prefill": {
+                    "name": $('#name').val(),
+                    "email": $('#em').val(),
+                    "contact": $('#mob').val()
+
+                },
+                "notes": {
+                    "address": "Hello World"
+                },
+                "theme": {
+                    "color": "#ed3e0e"
+                }
+            };
+
+            var rzp1 = new Razorpay(options);
+
+
+            rzp1.open();
+            e.preventDefault();
+        }
+    }
+</script>
+<script type="text/javascript" >
+
+    $( "#target" ).click(function( event ) {
+
+        document.getElementById("login").submit();
+    });
+
+</script>
+</body>
+</html>

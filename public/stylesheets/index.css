@@ -1,0 +1,12 @@
+body { font: 85% sans-serif; margin: 10px; color: #333; background: #ff514d; }
+pre { font-family: monospace; font-size: 1em; width: 9em; height: 15em; overflow: auto; }
+#visits { display: block; font-size: 2em; margin: 0.2em 0; color: #600; }
+#chat{
+    margin-right: 30%;
+    margin-top: 5%;
+    margin-left: 10%;
+
+}
+#b{
+    color:red
+}

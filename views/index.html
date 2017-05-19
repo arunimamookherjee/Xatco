@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h1>hiiiiii</h1>
+<form id="form1"  action='/redis_Check' method="post" style="margin-left: 5%; margin-top: 5% ; width: 30%; margin-left: 5%; margin-top: 5%">
+
+        <label for="em">Email:</label>
+        <input type="text" class="form-control"  name="em" id="em" placeholder="Enter email" value="Arunima" >
+        <button class="btn btn-success" id="button">Okay</button>
+
+
+</form>
+<h4 id="h4"></h4>
+<script>
+
+    $(document).ready(function()
+    {
+        $(window).bind("beforeunload", function() {
+            console.log("hie");
+            return confirm("Do you really want to close?");
+
+
+
+        });
+    });
+/*
+    document.getElementById('button').onclick = function(e)
+    {
+        console.log($('#em').val(data));
+
+        $.ajax({
+            url: "/redis_Check",
+            type: "POST",
+            data: {
+                content: $('#em').val()
+            },
+            success: function (data) {
+
+                if (data === "301")
+                    alert("Sorry! some error in chat occured. Try again later");
+                else
+                {
+                    //console.log("Message sent");
+                    $('#h4').val(data);
+                }
+
+            },
+            error: function(){
+               console.log(error);
+            }
+        });
+    };*/
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+block content
+    p  #{token}!
+
+    script(type='text/javascript')
+        | var local_data = !{JSON.stringify(token)}
+    script(src = '/javascripts/transfer.js')
+    include start_chat.html

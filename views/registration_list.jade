@@ -1,0 +1,11 @@
+extends layout
+block content
+    h3.
+    registrations
+    ul
+        each registration, i in registration_list
+            li#reg_list_item
+            a(href='#') #{registration.Name}  #{registration.Mob} #{registration.Email} #{registration.Date} #{registration.Changes} #{registration.Payment_Id}
+
+
+

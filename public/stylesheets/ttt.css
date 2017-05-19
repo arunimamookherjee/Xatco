@@ -1,0 +1,256 @@
+*{
+			margin: 0;
+			padding: 0;
+			font-family: tahoma,sans-serif;
+			box-sizing: border-box;
+		}
+#main
+{
+    background-image: url(/images/pop.jpg);
+}
+
+.click img{
+	width:60px;
+	height:60px;
+	position: absolute;
+    left: 1200px;
+	top: 600px;
+	cursor: pointer;
+}
+.fish  {
+	    	 width: 100%
+             height: 100%;
+             position: absolute;
+             bottom: 40px;
+             left: 1120px; 
+	         z-index: 20;
+	         background-color: none;
+	    }
+
+#close{
+	    	width:30px;
+	    	height:30px;
+	    	border-radius:30px;
+	    	background: white;
+	    	position: relative;
+	    	top: 5px;
+	    	left: 5px;
+	    	float:right;
+	    	cursor: pointer;
+	    }
+ #start{
+ 	display:none;
+ 	background:rgba(0,0,0,0.62);
+ 	width: 300px;
+ 	height: 130px;
+ 	position: absolute;
+ 	top: 400px;
+ 	left: 1000px;
+ 	padding: 30px;
+ 	border:2px dashed transparent;
+ }
+#cls{
+	width:30px;
+	height: 30px;
+	border-radius:30px;
+	background: white;
+	position: absolute;
+	top: 5px;
+   float: right;
+   right: 5px;
+   color: black;
+}
+ #ema{
+ 	width:250px;
+ 	height:30px;
+ 	background: white;
+ 	color: black;
+ 	position: absolute;
+    top: 10px;
+    left: 10px;
+    border:2px solid white;
+    border-radius:3px;
+ }
+ #nnn{
+ 	width:60px;
+ 	height:40px;
+ 	position: absolute;
+ 	top: 60px;
+ 	left: 20px;
+ 	color: white;
+ 	background: aqua;
+ 	border-radius:3px;
+ 	border:2px solid aqua;
+ }
+.chatbox{
+			width:360px;
+			min-width:300px;
+			height: 500px;
+			background: rgba(0,0,0,0.62);
+			border: 2px dashed transparent;
+			padding: 25px;
+			margin: 20px auto;
+			box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.15);
+			position: fixed;
+			left: 950px;
+			display: none; 
+		}
+
+.chatlogs{
+			padding:10px;
+			width:100%;
+			height: 380px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+		}
+
+.chatlogs::-webkit-scrollbar{
+			width:10px;
+		}
+
+.chatlogs::-webkit-scrollbar-thumb{
+			border-radius: 5px;
+			background: rgba(0,0,0,.1);
+		}
+
+.chat   {
+			display: flex;
+			flex-flow: row wrap;
+			align-items: flex-start;
+			margin-bottom: 13px;
+		}
+.chat .user-photo
+        {
+			width:65px;
+			height: 20px;
+			background:none;
+		    text-align: center;
+		    color: #fff;
+		}
+		
+.chat .chat-message
+        {
+			width:65%;
+			padding:15px;
+			margin: 5px 10px 0;
+			border-radius: 8px;
+			font-size: 13px; 
+			font-family: 'Raleway', sans-serif;
+        }
+
+.friend .chat-message
+        {
+			background: #ffffff;
+		}
+
+.self .chat-message
+        {
+			background: #00b359;
+			order: -1;
+			color: #fff;
+		}
+
+.chat-form
+        {
+			margin-top: 20px;
+			display: flex;
+			align-items: flex-start;
+		}
+
+#tantanatan
+        {
+			background: #fbfbfb;
+			width:75%;
+			height: 40px;
+			border:2px solid #bfc2c9;
+			border-radius: 3px;
+			resize: none;
+			padding: 10px;
+			font-size: 13px;
+			color: #333;
+	        /*overflow-y: scroll;*/
+		}
+
+#tantanatan:focus
+        {
+			background:#fff;
+		}
+		.chat-form textarea{
+			background: #fbfbfb;
+			width:75%;
+			height: 50px;
+			border:2px solid #bfc2c9;
+			border-radius: 3px;
+			resize: none;
+			padding: 10px;
+			font-size: 18px;
+			color: #333;
+		}
+		.chat-form textarea:focus{
+			background:#fff;
+		}
+		.chat-form textarea::-webkit-scrollbar{
+			width:10px;
+		}
+		.chat-form textarea::-webkit-scrollbar-thumb{
+			border-radius: 5px;
+			background: rgba(0,0,0,.1);
+		}
+/*.txtstuff {
+    resize: none;  remove this if you want the user to be able to resize it in modern browsers 
+    overflow: hidden;
+}*/
+/*
+ .hiddendiv {
+    display: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word; /* future version of deprecated 'word-wrap' */
+/*}*/
+
+/* the styles for 'commmon' are applied to both the textarea and the hidden clone */
+/* these must be the same for both */
+ /*.common {
+    width: 75%;
+    min-height: 50px;
+    font-family: 'Fredoka One',cursive;
+    font-size: 10px;
+    overflow: hidden;
+}
+
+ .lbr {
+    line-height: 10px;
+}*/
+
+#tantanatan::-webkit-scrollbar
+        {
+			width:10px;
+		}
+
+#tantanatan::-webkit-scrollbar-thumb
+        {
+			border-radius: 5px;
+			background: rgba(0,0,0,.1);
+		}
+
+.chat-form button
+        {
+			background: #00b359;
+			padding: 5px 15px;
+			font-size:20px;
+			color: #fff;
+			border:none;
+			margin:0 10px;
+			border-radius:3px;
+			box-shadow: 0 3px 0 dashed transparent;
+			cursor: pointer;
+		    
+		    -webkit-transition:background .2s ease;
+		    -moz-transition:background .2s ease;
+		    -o-transition:background .2s ease;
+		}
+
+.chat-form button:hover
+        {
+			background: #13c8d9;
+		}

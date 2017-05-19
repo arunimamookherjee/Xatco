@@ -1,0 +1,355 @@
+<html>
+<head>
+  <title>chatbox ui</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/ttt.css">
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body id="main" >
+<div class="click" id="icon" onclick="toggle_visibility()"><img src="/images/icon3.png">
+</div>
+<div id=start>
+  <input type="email" id="ema" placeholder="email address">
+  <button id="nnn" onclick="toto()">go</button>
+</div>
+<div class="chatbox" id="chatbox">
+<div class="topnav">
+ 
+</div>
+
+<div class="chatlogs"><!-- <button id="cls" onclick="close()"></button> --><form method="post">
+<input type="button" id="cls" 
+onclick="window.close()">
+</form>
+<!--  <div class="chat friend">
+    <div class="user-photo">name</div>
+    <p class="chat-message">what's up bro..!!</p>
+  </div>
+
+  <div class="chat self">
+    <div class="user-photo">name</div>
+    <p class="chat-message">what's up brother....!!</p>
+  </div>
+  <div class="chat friend">
+    <div class="user-photo">name</div>
+    <p class="chat-message">nananan</p>
+  </div>!-->
+
+</div>
+<div class="chat-form">
+  <textarea id="text"></textarea>
+  <button id="send" onclick="send()">Send</button>
+</div>  
+</div>
+</body>
+<script>
+
+  var legacy_token=null; //enter your slack legay token here
+  var your_email_id="a@gmail.com";
+  
+  var ch_id;
+  var joined=true;
+
+  var prev=false;
+  var prev_len;
+  var email;
+  var flag=1;
+
+  $( document ).ready(function()
+  {
+      $.ajax({
+          url: "/get_token",
+          type: "POST",
+          data: {
+              email: your_email_id
+          },
+          success: function (data) {
+
+              if (data === "007")
+              {  alert("Sorry! Sorry! Enter email id first")}
+              else if(data==="000")
+              {alert("chat not authorized"); }
+
+              else
+              {
+                  if(data)
+                     // console.log(data);
+                  console.log("Xatco to the rescue!");}
+                  legacy_token=data;
+
+          }
+      });
+
+
+      $(window).bind("beforeunload", function() {
+        console.log(flag);
+        if(flag==3)
+        {  $.ajax({
+            url: "/remove_em",
+            type: "POST",
+            data: {
+                content: email
+            },
+            success: function (data)
+            {
+                //console.log(data);
+            },
+            error: function(data)
+            {
+                //console.log(data);
+            }
+        });}
+        return confirm("Are you sure you want to leave?");
+
+      });
+
+
+  });
+
+  //**********UI JS***************************//
+  function toggle_visibility()
+    {
+      var e = document.getElementById('start');
+     
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+
+    function toto()
+    {
+        var c = document.getElementById('chatbox');
+        var e = document.getElementById('start');
+        if (c.style.display == 'block')
+            c.style.display = 'none';
+        else
+            c.style.display = 'none';
+
+
+
+
+      if(legacy_token==null)
+      alert("can't authenticate");
+      else{
+          email=$('#ema').val();
+          $.ajax({
+              url:"/redis_Check",
+              type:"POST",
+              data:{ content: $('#ema').val()},
+              success: function(data)
+              {
+
+                  var c = document.getElementById('chatbox');
+                  c.style.display = 'block';
+                  var e = document.getElementById('start');
+                  e.style.display='none';
+                  flag=3;
+
+                  if(data==="400")
+                  {  //start of an era
+                      $.ajax(
+                          {
+                              url: "/create_channel",
+                              type: "POST",
+                              data: {
+                                  channel_name: $('#ema').val(),
+                                  token: legacy_token,
+                                  case_no: 1
+                              },
+                              success: function (data) {
+                                  console.log("Channel created");
+
+                                  //console.log(data);
+                                  if (data === "101")
+                                      console.log("error");
+                                  else if(data ==="0000")
+                                      alert("Not authenticated user");
+                                  else if(data==="104")
+                                      alert("check your embedded domain name");
+                                  else {
+
+                                      ch_id = data.foo;
+                                      //console.log("total x messages "+ data);
+                                      if(data.bar==false)
+                                          joined=false;
+
+                                      //adding members to channel
+                                      $.ajax({
+                                          url: "/create_channel",
+                                          type: "POST",
+                                          data: {
+                                              channel_id: ch_id,
+                                              token: legacy_token,
+                                              case_no: 2
+                                          },
+                                          success: function (data) {
+
+                                              if (data === "201")
+                                                  alert("Sorry! some error in chat occured. Try again later");
+                                              else
+                                              {
+                                                  if(data)
+                                                  console.log(data);
+
+                                                      console.log("Welcome to Xatco!");}
+
+                                          }
+                                      });
+
+
+                                  }
+                              }
+                          });//end of main ajax
+                  }//end of an era
+                  else
+                  {
+
+                      var c = document.getElementById('chatbox');
+                      c.style.display = 'none';
+                      alert("Enter email again!"); flag=0;}
+
+              }
+          })
+      }
+
+    }//end of toto function
+
+
+
+
+function close()
+{
+  var c = document.getElementById('chatbox');
+  c.style.display =="none";
+
+      if(c.style.display == 'block')
+      {c.style.display = 'none';
+          $.ajax({
+              url: "/remove_em",
+              type: "POST",
+              data: {
+                  content: email
+              },
+              success: function (data)
+              {console.log(data);
+              flag=2;
+              },
+              error: function(data)
+              {
+                 // console.log(data);
+              }
+          });
+
+      }
+       else
+          c.style.display = 'block';
+}
+
+
+function send()
+{
+
+
+    var ch=ch_id;
+    $.ajax({
+        url: "/create_channel",
+        type: "POST",
+        data: {
+            channel_id: ch,
+            token: legacy_token,
+            content: $('#text').val(),
+            case_no: 3
+        },
+        success: function (data) {
+
+            if (data === "301")
+                alert("Sorry! some error in chat occured. Try again later");
+            else
+            {
+                //console.log("Message sent");
+                $('#text').val("");
+            }
+
+        }
+    });
+
+}
+
+
+  window.setInterval(function(){
+      if(ch_id!=null && legacy_token!=null)
+      {recieve();
+      //console.log(legacy_token);
+      //console.log("going to recieve");
+      }
+  }, 1000);
+
+
+function recieve()
+{
+    var ch=ch_id;
+    var txt;
+    $.ajax({
+        url: "/create_channel",
+        type: "POST",
+        data: {
+            channel_id: ch,
+            token: legacy_token,
+            case_no: 4
+        },
+        success: function (data) {
+
+            if (data === "401")
+                alert("Error in communication");
+            else
+            {
+                //console.log(data);
+                if(prev==false)
+                if(data.messages.length>0)
+                {
+                    prev_len=data.messages.length; prev=true;
+                }
+
+               if(prev_len<data.messages.length)
+               {
+                   for(var i=0;i<data.messages.length-prev_len;i++)
+                   {
+                       //console.log(data.messages.length+" prev="+prev_len);
+                       //console.log("area secured");
+                       var st=data.messages[i].text;
+
+
+                       if(st.includes("has joined the channel"))
+                       {}// console.log("ignored");
+                       else if(data.messages[i].bot_id)
+                           txt="<div class='chat self'><div class='user-photo'>YOU</div><p class='chat-message'>"+data.messages[i].text.replace(/[<>]/g,"")+"</p>/div>";
+                       else
+                           txt="<div class='chat friend'><div class='user-photo'>HELP</div><p class='chat-message'>"+data.messages[i].text.replace(/[<>]/g,"")+"</p>/div>";
+
+                       $(".chatlogs").append(txt);
+
+
+                   }
+                   prev_len=data.messages.length;
+
+               }
+
+            }
+
+        }
+    });
+
+
+}
+
+
+</script>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="icon" href="images/mag.ico" type="image/png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        .error{
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+<form id="login" method="post" action="/login" style="margin-left: 5%; margin-top: 5% ; width: 30%; margin-left: 5%; margin-top: 5%">
+    <div class="form-group" >
+        <label for="email">Email:</label>
+        <input type="email" class="form-control a" name="em" id="email" placeholder="Enter email" value="a@gmail.com" >
+    </div>
+    <div class="form-group">
+        <label  for="password">Password:</label>
+        <input type="password" class="form-control  " name="pass" id="pass" placeholder="Enter password" value="aaaa" >
+    </div>
+    <button class="btn btn-success" id="target">LOGIN</button>
+
+</form>
+
+<div id="hid" style="visibility:hidden;  width: 30%; margin-left: 5%; ">Error in password! Try again</div>
+<script src="/javascripts/transfer.js"></script>
+<script type="text/javascript" >
+
+    console.log(foo);
+    if(foo==="no")
+    {        console.log("doing");
+             $("#hid").css("visibility", "visible");
+    }
+
+    $( "#target" ).click(function( event ) {
+        alert( "Submit called" );
+        document.getElementById("login").submit();
+    });
+</script>
+</body>
+</html>
